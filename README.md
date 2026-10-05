@@ -61,6 +61,8 @@ Ten file khong dau mỗi file mới thêm số để khác không để trùng f
 ###### \- Truoc khi lam: Fetch/Pull origin. Ghi chu commit ro rang.
 
 ### **Nhớ lưu file k có dấu ko dấu cách ko chưa kí tự đặc biệt**
+Không commit file rác (thư mục Debug, x64, .vs, file .exe): nhìn tab Changes trước khi commit, thấy lạ thì hỏi.
+Không hiểu cái gì thì hỏi t trước khi tự làm nha 
 
 
 
