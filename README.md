@@ -4,9 +4,9 @@
 
 | thanh vien | job |
 
-|Le Duc Hieu | khung chung, test, ghep code, khach hang |
+|Le Duc Hieu | khung chung, test, ghep code,|
 
-|Nguyen Duc Dong | tim kiem |
+|Nguyen Duc Dong | tim kiem , khánh hàng|
 
 |Nguyen Quoc Viet | hoa don, thong ke|
 
