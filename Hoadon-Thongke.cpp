@@ -90,7 +90,7 @@ public:
 
     void setTrangThai(TrangThaiThanhToan tt) { TrangThai = tt; }
 
-    void hienThiDongDong() const {
+    void hienThiTungDong() const {
         cout << left << setw(10) << MaHD
              << setw(12) << MaKH
              << setw(10) << MaT
@@ -202,7 +202,7 @@ public:
              << setw(18) << "Hinh Thuc TT"
              << setw(16) << "Trang Thai" << endl;
         cout << string(120, '-') << endl;
-        for (const auto& hd : dsHoaDon) hd.hienThiDongDong();
+        for (const auto& hd : dsHoaDon) hd.hienThiTungDong();
         cout << string(120, '=') << "\n" << endl;
     }
 
@@ -233,7 +233,7 @@ public:
     }
 
     // ==========================================
-    // CÁC CHỨC NĂNG THỐNG KÊ VÀ BÁO CÁO
+    // CÁC CHỨC NĂNG THỐNG KÊ (hiển thị dạng văn bản)
     // ==========================================
 
     // 1. Thống kê tổng doanh thu (chỉ tính hóa đơn DA_THANH_TOAN)
@@ -246,10 +246,9 @@ public:
                 dem++;
             }
         }
-        cout << "\n================ THONG KE DOANH THU ================" << endl;
-        cout << "So luong hoa don da thanh toan hop le : " << dem << endl;
-        cout << "Tong doanh thu thu duoc               : " << fixed << setprecision(0) << tongDoanhThu << " VND" << endl;
-        cout << "=====================================================\n" << endl;
+        cout << "\n--- THONG KE DOANH THU ---" << endl;
+        cout << "So luong hoa don da thanh toan hop le: " << dem << endl;
+        cout << "Tong doanh thu thu duoc: " << fixed << setprecision(0) << tongDoanhThu << " VND" << endl;
     }
 
     // 2. Thong ke theo thoi gian. Khoa sap xep theo YYYYMMDD de dung thu tu.
@@ -304,18 +303,11 @@ public:
             return;
         }
 
-        cout << "\n" << left << setw(18) << "Thoi gian"
-             << setw(20) << "Doanh thu (VND)" << "Bieu do (1 vach ~ 2 trieu)\n";
-        cout << string(75, '-') << endl;
+        cout << "\n--- DOANH THU THEO THOI GIAN ---" << endl;
         for (const auto& item : thongKe) {
-            double doanhThu = item.second.second;
-            int soVach = static_cast<int>(doanhThu / 2000000.0);
-            if (soVach > 40) soVach = 40;
-            cout << left << setw(18) << item.second.first
-                 << setw(20) << fixed << setprecision(0) << doanhThu
-                 << string(soVach, '=') << ">\n";
+            cout << item.second.first << ": "
+                 << fixed << setprecision(0) << item.second.second << " VND" << endl;
         }
-        cout << string(75, '=') << endl;
     }
 
     // 3. Thống kê theo Tour (Doanh thu cao nhất / thấp nhất)
@@ -339,9 +331,7 @@ public:
             return;
         }
 
-        cout << "\n================== THONG KE DOANH THU THEO TOUR ==================" << endl;
-        cout << left << setw(12) << "Ma Tour" << setw(18) << "So Khach" << setw(20) << "Tong Doanh Thu (VND)" << endl;
-        cout << "------------------------------------------------------------------" << endl;
+        cout << "\n--- THONG KE DOANH THU THEO TOUR ---" << endl;
 
         string tourMax = "", tourMin = "";
         double maxDT = -1, minDT = -1;
@@ -349,9 +339,8 @@ public:
         for (const auto& pair : doanhThuTour) {
             string maT = pair.first;
             double dt = pair.second;
-            cout << left << setw(12) << maT
-                 << setw(18) << soLuongTour[maT]
-                 << setw(20) << fixed << setprecision(0) << dt << endl;
+            cout << "Tour " << maT << ": " << soLuongTour[maT] << " khach, doanh thu "
+                 << fixed << setprecision(0) << dt << " VND" << endl;
 
             if (maxDT == -1 || dt > maxDT) {
                 maxDT = dt;
@@ -362,10 +351,8 @@ public:
                 tourMin = maT;
             }
         }
-        cout << "------------------------------------------------------------------" << endl;
-        cout << "=> Tour doanh thu CAO NHAT  : " << tourMax << " (" << fixed << setprecision(0) << maxDT << " VND)" << endl;
-        cout << "=> Tour doanh thu THAP NHAT : " << tourMin << " (" << fixed << setprecision(0) << minDT << " VND)" << endl;
-        cout << "==================================================================\n" << endl;
+        cout << "Tour doanh thu CAO NHAT : " << tourMax << " (" << fixed << setprecision(0) << maxDT << " VND)" << endl;
+        cout << "Tour doanh thu THAP NHAT: " << tourMin << " (" << fixed << setprecision(0) << minDT << " VND)" << endl;
     }
 
     // 4. Thống kê số lượng khách hàng đăng ký tour
@@ -387,18 +374,14 @@ public:
             }
         }
 
-        cout << "\n=============== THONG KE SO LUONG KHACH HANG ===============" << endl;
-        cout << "Tong so nguoi lon dang ky : " << tongNL << endl;
-        cout << "Tong so tre em dang ky    : " << tongTE << endl;
-        cout << "Tong cong so luong khach  : " << (tongNL + tongTE) << " khach" << endl;
+        cout << "\n--- THONG KE SO LUONG KHACH HANG ---" << endl;
+        cout << "Tong so nguoi lon dang ky: " << tongNL << endl;
+        cout << "Tong so tre em dang ky   : " << tongTE << endl;
+        cout << "Tong cong so luong khach : " << (tongNL + tongTE) << " khach" << endl;
         cout << "(Tinh hoa don da dat coc va da thanh toan; khong tinh hoa don huy/chua thanh toan)" << endl;
-        cout << "-----------------------------------------------------------" << endl;
-        cout << left << setw(15) << "Ma Tour" << "Tong So Khach" << endl;
-        cout << "-----------------------------------------------------------" << endl;
         for (const auto& pair : khachTheoTour) {
-            cout << left << setw(15) << pair.first << pair.second << " khach" << endl;
+            cout << "Tour " << pair.first << ": " << pair.second << " khach" << endl;
         }
-        cout << "===========================================================\n" << endl;
     }
 
     // 5. Thống kê hóa đơn
@@ -415,34 +398,18 @@ public:
             }
         }
 
-        cout << "\n=================== THONG KE TRANG THAI HOA DON ===================" << endl;
-        cout << left << setw(20) << "Trang Thai" << setw(15) << "So Luong" << "Ty Le (%)" << endl;
-        cout << "-------------------------------------------------------------------" << endl;
-        
-        auto inDongBang = [](string ten, int sl, int tongSo) {
-            double phanTram = (tongSo > 0) ? (static_cast<double>(sl) / tongSo) * 100.0 : 0.0;
-            cout << left << setw(20) << ten << setw(15) << sl 
-                 << fixed << setprecision(1) << phanTram << "%" << endl;
+        auto inDong = [tong](const string& ten, int sl) {
+            double phanTram = (tong > 0) ? (static_cast<double>(sl) / tong) * 100.0 : 0.0;
+            cout << ten << ": " << sl << " hoa don ("
+                 << fixed << setprecision(1) << phanTram << "%)" << endl;
         };
 
-        inDongBang("Da thanh toan", demDaTT, tong);
-        inDongBang("Da dat coc", demDatCoc, tong);
-        inDongBang("Chua thanh toan", demChuaTT, tong);
-        inDongBang("Da huy", demDaHuy, tong);
-        cout << "-------------------------------------------------------------------" << endl;
-        cout << "Tong so hoa don trong he thong : " << tong << endl;
-
-        // Bieu do cot phan bo trang thai (ASCII bar chart)
-        cout << "\n[Bieu do cot phan bo hoa don]" << endl;
-        auto inBieuDoCot = [](string nhan, int sl) {
-            cout << left << setw(16) << nhan << " | " << string(sl * 3, '*') << " (" << sl << ")" << endl;
-        };
-        inBieuDoCot("Da thanh toan", demDaTT);
-        inBieuDoCot("Da dat coc", demDatCoc);
-        inBieuDoCot("Chua thanh toan", demChuaTT);
-        inBieuDoCot("Da huy", demDaHuy);
-        cout << "===================================================================\n" << endl;
-        cout << "Luu y: Day la bieu do cot ASCII, chua phai bieu do tron. Ty le phan tram da duoc the hien trong bang.\n";
+        cout << "\n--- THONG KE TRANG THAI HOA DON ---" << endl;
+        inDong("Da thanh toan", demDaTT);
+        inDong("Da dat coc", demDatCoc);
+        inDong("Chua thanh toan", demChuaTT);
+        inDong("Da huy", demDaHuy);
+        cout << "Tong so hoa don trong he thong: " << tong << endl;
     }
 };
 
@@ -459,7 +426,7 @@ int main() {
              << "6. Thong ke doanh thu theo thoi gian (Ngay/Thang/Quy/Nam).\n"
              << "7. Thong ke doanh thu theo tour (Cao nhat / Thap nhat).\n"
              << "8. Thong ke so luong khach hang dang ky tour.\n"
-             << "9. Thong ke tinh trang hoa don (Bang & Bieu do cot).\n"
+             << "9. Thong ke tinh trang hoa don.\n"
              << "0. Thoat.\n";
         luachon = nhapSo<int>("Nhap lua chon cua ban: ");
         switch (luachon) {
